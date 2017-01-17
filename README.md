@@ -1,8 +1,7 @@
 # TestTarget
 A test program for use as a memory reading target.
-Part of a coursework project for [Javalabra-2017-3](https://github.com/javaLabra/Javalabra2017-3).
 
-# Usage
+## Usage
 
 	USAGE:    testtarget.exe money gold isgentoo ispriv speed name
 
@@ -22,6 +21,22 @@ Part of a coursework project for [Javalabra-2017-3](https://github.com/javaLabra
 	After setting the variables, the address of the state struct is printed
 	with the PRIXPTR format specifier. Then, a call is made to getchar()
 	to pause execution.
+
+## Compiling
+
+TestTarget has no dependencies outside the C standard library.
+
+### Windows:
+ 1. Install Visual Studio, latest Community Edition will do fine
+ 2. Launch `Developer Command Prompt for VS2015` (or whichever
+	VS version you have), or run (replace 14.0 with your version):
+	`C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat`
+	in order to set up the environmental variables.
+ 3. Run `build.bat` or `nmake all /F NMakeFile`
+
+### Linux:
+ 1. Run `make all`
 	
-# License
-TestTarget is licensed under the MIT License (Expat). See LICENSE.
+## License
+TestTarget is licensed under the MIT License (Expat).
+See LICENSE.
