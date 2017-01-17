@@ -15,7 +15,7 @@ typedef struct {
     int8_t GentooInstalled;
     int8_t PrivilegeChecked;
     int16_t SpeedOfSeriousShit;
-    const char *Name; // target platform: x86, if sizeof(char *) is not 4...pray
+    char *Name; // target platform: x86, if sizeof(char *) is not 4...pray
 } GlobalState;
 
 // Use a static state struct so that its location is always predictable
