@@ -1,0 +1,10 @@
+TARGET = testtarget.exe
+
+SOURCES = \
+	src/testtarget.c
+
+all:
+	cl $(SOURCES) /link /out:$(TARGET)
+
+clean:
+	del /F testtarget.exe testtarget.obj
