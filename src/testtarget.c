@@ -52,6 +52,7 @@ int main(int argc, char *argv[]) {
     printf("%"PRIXPTR"\n", (uintptr_t)&globalState);
     getchar();
 
+    free(globalState.Name);
     return EXIT_SUCCESS;
 }
 
@@ -69,7 +70,7 @@ void Help(const char *progName) {
     puts("name:     String value for the Name variable, max 1024 chars");
     puts("");
     puts("Backing variable types:");
-	puts("    Integer=int32_t, Short=int16_t, Boolean=int8_t, String=char *");
+    puts("    Integer=int32_t, Short=int16_t, Boolean=int8_t, String=char *");
     puts("");
     puts("The provided variables are set into static variables, for easy access.");
     puts("After setting the variables, the address of the state struct is printed");
@@ -89,6 +90,10 @@ bool ParseArgs(GlobalState *state, int argc, char *argv[]) {
     state->PrivilegeChecked = (int8_t)atoi(argv[4]);
     state->SpeedOfSeriousShit = (int16_t)atoi(argv[5]);
     char *namebuf = calloc(1025, sizeof(char)); // calloc provides zeroed memory blocks
+    if (namebuf == NULL) {
+        fputs("Could not allocate 1025 bytes for name buffer!", stderr);
+        return false;
+    }
     state->Name = strncpy(namebuf, argv[6], 1024);
     return true;
 }
