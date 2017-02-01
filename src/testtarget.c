@@ -6,6 +6,15 @@
 #include <stdbool.h>
 #include <string.h>
 
+#ifdef _WIN32
+    #include <Windows.h>
+    #define sleepms(x) Sleep(x)
+#else
+    #include <unistd.h>
+    #define ONE_MS_IN_US 1000
+    #define sleepms(x) usleep(x*ONE_MS_IN_US)
+#endif
+
 #define EXPECTED_ARGC 7
 
 // C standard guarantees that the members are sequential in memory
@@ -50,7 +59,15 @@ int main(int argc, char *argv[]) {
     }
 
     printf("%"PRIXPTR"\n", (uintptr_t)&globalState);
-    getchar();
+    unsigned int sleepCycles = 0;
+    while (true) {
+        if (sleepCycles % 50 == 0) {
+            // ping every 5 sec
+            puts("Ping");
+        }
+        sleepms(100);
+        sleepCycles++;
+    }
 
     free(globalState.Name);
     return EXIT_SUCCESS;
