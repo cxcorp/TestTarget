@@ -59,11 +59,14 @@ int main(int argc, char *argv[]) {
     }
 
     printf("%"PRIXPTR"\n", (uintptr_t)&globalState);
+    fflush(stdout);
+    
     unsigned int sleepCycles = 0;
     while (true) {
         if (sleepCycles % 50 == 0) {
             // ping every 5 sec
             puts("Ping");
+            fflush(stdout);
         }
         sleepms(100);
         sleepCycles++;
