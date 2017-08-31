@@ -15,6 +15,8 @@
     #define sleepms(x) usleep(x*ONE_MS_IN_US)
 #endif
 
+#define PRINT_PID !_WIN32
+
 #define EXPECTED_ARGC 7
 
 // C standard guarantees that the members are sequential in memory
@@ -45,6 +47,8 @@ static void Help(const char *programName);
  */
 static bool ParseArgs(GlobalState *state, int argc, char *argv[]);
 
+static void PrintPing(const GlobalState *state);
+
 
 int main(int argc, char *argv[]) {
     if (argc < 1) {
@@ -58,14 +62,17 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
 
-    printf("%"PRIXPTR"\n", (uintptr_t)&globalState);
+#ifdef PRINT_PID
+    printf("PID: %d\n", getpid());
+#endif
+    printf("State struct address: %"PRIXPTR"\n", (uintptr_t)&globalState);
     fflush(stdout);
     
     unsigned int sleepCycles = 0;
     while (true) {
         if (sleepCycles % 50 == 0) {
             // ping every 5 sec
-            puts("Ping");
+            PrintPing(&globalState);
             fflush(stdout);
         }
         sleepms(100);
@@ -74,6 +81,21 @@ int main(int argc, char *argv[]) {
 
     free(globalState.Name);
     return EXIT_SUCCESS;
+}
+
+void PrintPing(const GlobalState *s) {
+    puts("State");
+    puts("MONEY      GOLD       ISGENTOO   ISPRIV     SPEED      NAME          ");
+    printf(
+        "%-10d %-10d %-10s %-10s %-10d %-10s\n",
+        s->Money,
+        s->Gold,
+        s->GentooInstalled ? "true" : "false",
+        s->PrivilegeChecked ? "true" : "false",
+        s->SpeedOfSeriousShit,
+        s->Name
+    );
+    puts("");
 }
 
 void Help(const char *progName) {
