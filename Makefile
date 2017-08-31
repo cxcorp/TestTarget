@@ -1,5 +1,5 @@
 CC = gcc -g
-CCFLAGS = -Wall
+CCFLAGS = -Wall -m32
 OUTFILE = testtarget
 DEPS = src/testtarget.c
 
